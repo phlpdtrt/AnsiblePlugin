@@ -25,10 +25,21 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gradle-
 
+    - uses: actions/cache@v2
+      with:
+        path: ~/.sonar/cache
+        key: ${{ runner.os }}-sonar
+
     - name: Build with Gradle
       run: ./gradlew build --info
       env:
         CI: true
+
+    - name: Scan project using SonarQube
+      run: ./gradlew sonarqube --info
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
     - name: Verify Plugin on IntelliJ Platforms
       id: verify
