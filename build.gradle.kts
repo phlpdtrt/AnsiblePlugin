@@ -1,7 +1,7 @@
 plugins {
     java
     jacoco
-    id("org.sonarqube") version "3.0"
+    id ("org.sonarqube") version "4.3.1.3277"
     id("org.jetbrains.intellij") version "0.5.0"
 }
 
@@ -29,11 +29,11 @@ intellij {
     updateSinceUntilBuild = false
 }
 
-sonarqube {
+sonar {
     properties {
-        properties["sonar.projectKey"] = "MSDehghan_AnsiblePlugin"
-        properties["sonar.organization"] = "msdehghan-github"
-        properties["sonar.host.url"] = "https://sonarcloud.io"
+        property("sonar.projectKey", "phlpdtrt_ansibleplugin")
+        property("sonar.organization", "phlpdtrt")
+        property("sonar.host.url", "https://sonarcloud.io")
     }
 }
 
