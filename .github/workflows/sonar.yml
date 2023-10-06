@@ -1,4 +1,4 @@
-name: Build
+name: Sonar
 
 on: [push, pull_request]
 
@@ -30,22 +30,8 @@ jobs:
         path: ~/.sonar/cache
         key: ${{ runner.os }}-sonar
 
-    - name: Build with Gradle
-      run: ./gradlew build --info
+    - name: Scan project using SonarQube
+      run: ./gradlew sonarqube --info
       env:
-        CI: true
-
-    - name: Verify Plugin on IntelliJ Platforms
-      id: verify
-      uses: ChrisCarini/intellij-platform-plugin-verifier-action@v1.2.3
-      with:
-        ide-versions: |
-          ideaIC:2022.3
-          ideaIC:2023.1
-          ideaIC:2023.2          
-          pycharmPC:2022.3          
-          pycharmPC:2023.1
-          pycharmPC:2023.2
-
-    - name: Stop Gradle daemon
-      run: ./gradlew --stop
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
