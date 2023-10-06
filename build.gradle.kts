@@ -36,16 +36,3 @@ sonar {
         property("sonar.host.url", "https://sonarcloud.io")
     }
 }
-
-tasks{
-    sonarqube.get().dependsOn(jacocoTestReport)
-    jacocoTestReport {
-        dependsOn(test)
-        reports {
-            xml.isEnabled = true
-        }
-    }
-    buildSearchableOptions {
-        enabled = false
-    }
-}
